@@ -31,12 +31,12 @@ $( function() {
         },
     ]
     
-    $( "#client" ).autocomplete({
+    $("#client").autocomplete({
       source: clients,
-      select: function( event, ui ) {
-          if (ui.item.val == -1){
-              clients.append(ui.item.text())
-          }
+      select: function(event, ui ) {
+        if (!clients.includes(ui.item.val)){
+            clients.append(ui.item.text())
+        }
       }
     });
 
@@ -66,8 +66,12 @@ $( function() {
 
     $(document).ready(function() {
         makeSales(sales)
+        $("#client").focus();
+        
         $("#Submit").click(function(){
-            console.log("input")
+            $("#client").val('');
+            $("#reams").val('');
+            $("#client").focus();
             const salesname = "Pamela Beesly"
             var client = $("#client").val();
             var reams = $("#reams").val();
@@ -76,10 +80,14 @@ $( function() {
                 "client": client,
                 "reams": reams,
             }
+            if (!clients.includes(client)){
+                clients.unshift(client)
+            }
             console.log(input)
-            sales.prepend(input)
+            sales.unshift(input)
+            $("#sales").empty()
             makeSales(sales)
-
         })
+        console.log(clients)
     })
   } );
