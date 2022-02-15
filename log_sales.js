@@ -43,15 +43,43 @@ $( function() {
     function makeSales(sales) {
         $("#sales").empty()
         $.each(sales,function(index,value){
-            var creatediv = $("<div class='row spacing'>")
-            creatediv.text(value.client)
-            console.log(value)
-            console.log(value.client)
-            $("container").append(creatediv)
+            // Create Row
+            var createRow = $("<div class='row'>")
+            
+            // Create Columns Within Row
+            var createColO = $("<div class='col-md-2'>")
+            createColO.text(value.salesperson)
+            createRow.append(createColO)
+
+            var createColT = $("<div class='col-md-3'>")
+            createColT.text(value.client)
+            createRow.append(createColT)
+
+            var createColTH = $("<div class='col-md-2'>")
+            createColTH.text(value.reams)
+            createRow.append(createColTH)
+
+            $(".container").append(createRow)
+
         });
     }
 
     $(document).ready(function() {
         makeSales(sales)
+        $("#Submit").click(function(){
+            console.log("input")
+            const salesname = "Pamela Beesly"
+            var client = $("#client").val();
+            var reams = $("#reams").val();
+            var input = {
+                "salesperson": salesname,
+                "client": client,
+                "reams": reams,
+            }
+            console.log(input)
+            sales.prepend(input)
+            makeSales(sales)
+
+        })
     })
   } );
