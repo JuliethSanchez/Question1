@@ -1,0 +1,59 @@
+.container{
+    width: 200px;
+    padding: 10px;
+    display: inline-block; 
+    vertical-align: top;
+    margin-left: 90px;
+}
+.HeaderStyle{
+    background-color: lightblue;
+    border-color: lightgrey;
+    padding: 20px;
+    margin: 0px;
+    font-weight: bold;
+}
+.HeaderStylePcc{
+    background-color: lightblue;
+    border-color: lightgrey;
+    padding: 20px;
+    margin: 0px;
+    font-weight: bold;
+}
+.gridlayout{
+    border:1px solid gray;   
+    cursor: move;        
+}
+.ppcontainer{
+    width: 200px;
+    padding: 10px;
+    display: inline-block; 
+    vertical-align: top;
+}
+.e:hover {
+    background-color:lightyellow;
+}
+.banner{
+    background-color: lightgray;
+    width: 1400px;
+    height: 200px;
+    padding: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 50px;
+}
+.bannerText{
+    font-weight: bold;
+    font-size: xx-large;
+    text-align: center; 
+    margin: 40px;
+}
+.changeBack{
+    background-color: blue;
+}
+
+.ui-state-active{
+    background-color: blue;
+}
+.d:hover {
+    background-color: rgb(50, 206, 218);
+}
