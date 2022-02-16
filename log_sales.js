@@ -44,6 +44,8 @@ $( function() {
         $("#sales").empty()
         $.each(sales,function(index,value){
             // Create Row
+            var createSales = $("<div id='sales'>")
+
             var createRow = $("<div class='row'>")
             
             // Create Columns Within Row
@@ -55,23 +57,78 @@ $( function() {
             createColT.text(value.client)
             createRow.append(createColT)
 
-            var createColTH = $("<div class='col-md-2'>")
+            var createColTH = $("<div class='col-md-3'>")
             createColTH.text(value.reams)
             createRow.append(createColTH)
 
-            $(".container").append(createRow)
+            var deleteButton = $("<button class='col-md-1 buttonStyle'>")
+            $(deleteButton).text("X")
+            createRow.append(deleteButton)
+
+            createSales.append(createRow)
+
+            $(".container").append(createSales)
 
         });
     }
 
+    function warnings(){
+        let clientValue = document.getElementById("client").value;
+        let reamsValue = document.getElementById("reams").value;
+        const button = document.querySelector('#Submit');
+
+        if (clientValue.length == 0 & reamsValue.length == 0){
+            $("#client").focus();
+            document.getElementById("warningc").innerHTML = "Must Fill"
+            document.getElementById("warningr").innerHTML = "Must Fill"
+            
+            button.disabled = true
+        }
+        else if (clientValue.length == 0){
+            document.getElementById("warningc").innerHTML = "Must Fill"
+            button.disabled = true
+            $("#client").focus();
+        }
+        else if (reamsValue.length == 0){
+            document.getElementById("warningr").innerHTML = "Must Fill"
+            $("#reams").focus();
+            button.disabled = true
+        }
+        if (clientValue.length > 0 & reamsValue.length > 0){
+            document.getElementById("warningc").innerHTML = ""
+            document.getElementById("warningr").innerHTML = ""
+            button.disabled = false
+        }
+
+        if (!Number.isInteger(reamsValue)){
+            document.getElementById("warningr").innerHTML = "Must be an Integer"
+            $("#reams").focus();
+            button.disabled = true
+        }
+        else{
+            document.getElementById("warningr").innerHTML = ""
+            $("#client").val('');
+            $("#reams").val('');
+            button.disabled = false 
+        }
+    }
     $(document).ready(function() {
         makeSales(sales)
         $("#client").focus();
-        
+
+        $('input').keyup(function(event) {
+            if (event.which === 13)
+            {
+                event.preventDefault();
+                $("#Submit").click();
+            }
+        });
         $("#Submit").click(function(){
-            $("#client").val('');
-            $("#reams").val('');
             $("#client").focus();
+            warnings()
+            const button = document.querySelector('#Submit');
+            button.disabled = false
+
             const salesname = "Pamela Beesly"
             var client = $("#client").val();
             var reams = $("#reams").val();
@@ -80,14 +137,16 @@ $( function() {
                 "client": client,
                 "reams": reams,
             }
+            console.log(input)
             if (!clients.includes(client)){
                 clients.unshift(client)
             }
-            console.log(input)
             sales.unshift(input)
-            $("#sales").empty()
+            $("#sales").empty() // Doesnt work to remove the list
             makeSales(sales)
+
+            // $("#client").val('');
+            // $("#reams").val('');
         })
-        console.log(clients)
     })
   } );
